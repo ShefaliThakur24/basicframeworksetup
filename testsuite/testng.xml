@@ -1,0 +1,12 @@
+<suite name="Sanity Suite">
+    <listeners>
+        <listener class-name="com.basicsetup.utils.Listeners"/>
+    </listeners>
+    <test name="Sanity Test">
+        <classes>
+            <class name="com.basicsetup.GetApi"/>
+            <class name="com.basicsetup.PostApi"/>
+            <class name="com.basicsetup.PutApi"/>
+        </classes>
+    </test>
+</suite>
