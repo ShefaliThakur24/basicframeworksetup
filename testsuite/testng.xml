@@ -1,8 +1,13 @@
-<suite name="Sanity Suite">
+<suite name="Sanity Suite" parallel="classes" thread-count="2">
     <listeners>
         <listener class-name="com.basicsetup.utils.Listeners"/>
     </listeners>
-    <test name="Sanity Test">
+ <test name="Sanity Test">
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <exclude name="sanity"/>-->
+<!--            </run>-->
+<!--        </groups>-->
         <classes>
             <class name="com.basicsetup.GetApi"/>
             <class name="com.basicsetup.PostApi"/>

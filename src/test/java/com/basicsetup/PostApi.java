@@ -1,6 +1,7 @@
 package com.basicsetup;
 
-import com.basicsetup.helpers.PostHelper;
+import com.basicsetup.handlers.LoginHandler;
+import com.basicsetup.handlers.PostHandler;
 import com.basicsetup.model.responseDto.fastapi.Post;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -11,23 +12,30 @@ public class PostApi {
 
     //Init initialize the PostHelper
 
-    private PostHelper postHelper;
+    private LoginHandler loginHandler;
+    private PostHandler postHandler;
 
     @BeforeClass
     public void init() {
 
-        postHelper = new PostHelper();
-        postHelper.getAccessToken();
+        this.loginHandler = new LoginHandler();
+        this.postHandler = new PostHandler();
+        //      postHelper.getAccessToken();
 
     }
 
-    @Test()
+    @Test()//priority = 0)
+    public void testLogin() {
+        loginHandler.getAccessToken();
+    }
+
+    @Test(groups = {"sanity"},dependsOnMethods ={"testLogin"} )
     public void createPostTest() {
-        Response response = postHelper.createPost();
+        Response response = postHandler.createPost();
         Assert.assertEquals(response.getStatusCode(), 201);
         Post postObject = response.as(Post.class);
-        Assert.assertEquals(postObject.getTitle(),"2wewe");
-        Assert.assertEquals(postObject.getContent(),"wewew");
+        Assert.assertEquals(postObject.getTitle(), "2wewe");
+        Assert.assertEquals(postObject.getContent(), "wewew");
 
         // Assert.assertEquals(title,p);
     }

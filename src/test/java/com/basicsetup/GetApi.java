@@ -1,28 +1,46 @@
 package com.basicsetup;
 
-import com.basicsetup.helpers.PostHelper;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.basicsetup.handlers.PostHandler;
 import com.basicsetup.model.responseDto.fastapi.GetResponse;
 import com.basicsetup.utils.BaseClass;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GetApi extends BaseClass {
+    private ExtentReports extent;
 
-    private PostHelper postHelper;
+    private PostHandler postHelper;
+
+//    @BeforeTest
+//    public void config() {
+//
+//        String path = System.getProperty("user.dir") + "/reports/Report.html";
+//        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+//        spark.config().setReportName("Get Api Results");
+//        spark.config().setDocumentTitle("Test Results");
+//
+//        extent = new ExtentReports();
+//        extent.attachReporter(spark);
+//        extent.setSystemInfo("Tester", "Shefali");
+//    }
 
     @BeforeClass
     public void init() {
-        postHelper = new PostHelper();
+        postHelper = new PostHandler();
 
     }
 
-    @Test
+
+    @Test(groups = {"sanity"})
     public void testGetPosts() {
+
         logger.info("Starting Get Request");
         List<GetResponse> response = postHelper.getPostResponse();
         Assert.assertNotNull(response, "response is not empty");
